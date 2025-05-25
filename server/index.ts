@@ -15,7 +15,7 @@ const __dirname = path.dirname(__filename);
 // Serve client static files from Vite build
 app.use(express.static(path.join(__dirname, '../dist')));
 
-app.get('../*', (_req, res) => {
+app.get('*', (_req, res) => {
     res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
 
