@@ -3,7 +3,7 @@ import { createServer } from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
 import path from 'path';
-import { Player, Move, Room } from '../src/types';
+import { Player, Move, Room } from './types';
 import {fileURLToPath} from "node:url";
 
 

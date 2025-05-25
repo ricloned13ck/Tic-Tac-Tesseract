@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { socket } from '../server/socket';
-import { Player, Room } from './types';
+import { Player, Room } from '../server/types.ts';
 import './styles/Main_Menu.css';
 import defaultAvatar from '../src/assets/default_avatar.png';
 

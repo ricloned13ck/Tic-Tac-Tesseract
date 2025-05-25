@@ -1,6 +1,6 @@
 import React from 'react';
 import '../src/styles/GameBoard.css';
-import { Player } from './types.ts';
+import { Player } from '../server/types.ts';
 
 interface GameBoardProps {
     board: string[][][];

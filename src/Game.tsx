@@ -3,7 +3,7 @@ import {useLocation, useParams, useNavigate} from 'react-router-dom';
 import GameBoard from '../src/GameBoard';
 import PlayerPanel from '../src/PlayerPanel';
 import MoveList from '../src/MoveList';
-import {Player} from './types';
+import {Player} from '../server/types.ts';
 import {socket} from '../server/socket';
 import './styles/App.css';
 

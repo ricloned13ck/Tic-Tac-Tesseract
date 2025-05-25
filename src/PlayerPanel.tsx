@@ -1,5 +1,5 @@
 import React from 'react';
-import { Player } from './types.ts';
+import { Player } from '../server/types.ts';
 import '../src/styles/PlayerPanel.css';
 import { socket } from '../server/socket';
 

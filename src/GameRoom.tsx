@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { socket } from '../server/socket';
-import { Room, Player } from './types';
+import { Room, Player } from '../server/types.ts';
 
 const GameRoom: React.FC = () => {
     const { roomName } = useParams();
