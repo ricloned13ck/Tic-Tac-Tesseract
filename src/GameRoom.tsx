@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { socket } from '../server/socket';
 import { Room, Player } from '../server/types.ts';
+import { v4 as uuidv4 } from 'uuid';
 
 const GameRoom: React.FC = () => {
     const { roomName } = useParams();
@@ -11,7 +12,7 @@ const GameRoom: React.FC = () => {
     useEffect(() => {
         let playerId = localStorage.getItem("playerId");
         if (!playerId) {
-            playerId = crypto.randomUUID();
+            playerId = uuidv4();
             localStorage.setItem("playerId", playerId);
         }
 

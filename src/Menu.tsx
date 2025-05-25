@@ -4,6 +4,7 @@ import { socket } from '../server/socket';
 import { Player, Room } from '../server/types.ts';
 import './styles/Main_Menu.css';
 import defaultAvatar from '../src/assets/default_avatar.png';
+import { v4 as uuidv4 } from 'uuid';
 
 const figures = import.meta.glob('../src/assets/figures/*.{png,jpg,jpeg,gif}', {
     eager: true,
@@ -62,7 +63,7 @@ const Menu: React.FC = () => {
     useEffect(() => {
         let playerId = localStorage.getItem('playerId');
         if (!playerId) {
-            playerId = crypto.randomUUID();
+            playerId = uuidv4();
             localStorage.setItem('playerId', playerId);
         }
 
