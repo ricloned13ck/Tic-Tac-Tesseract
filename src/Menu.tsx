@@ -292,7 +292,7 @@ const Menu: React.FC = () => {
                     {exampleImages.map((img, i) => (
                         <img
                             key={i}
-                            src={`../src/assets/${img}`}
+                            src={`/src/assets/${img}`}
                             alt={`win example ${i + 1}`}
                             onClick={() => setSelectedImageIndex(i)}
                             style={{
