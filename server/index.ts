@@ -262,5 +262,20 @@ io.on('connection', (socket: any) => {
         console.log(`❌ Socket отключён: ${socket.id}`);
     });
 });
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// @ts-ignore
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Раздача клиентской сборки
+app.use(express.static(path.join(__dirname, '../client/dist')));
+
+// SPA fallback (всё на index.html)
+app.get('*', (_req, res) => {
+    res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+});
+
 
 server.listen(4000, () => console.log('🚀 Сервер запущен на порту 4000'));
