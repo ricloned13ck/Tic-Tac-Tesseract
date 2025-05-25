@@ -4,6 +4,7 @@ import { Server } from 'socket.io';
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
+// @ts-ignore
 import { Player, Move, Room } from '../src/types';
 
 // @ts-ignore
