@@ -2,6 +2,7 @@ import React from 'react';
 import { Player } from '../server/types.ts';
 import '../src/styles/PlayerPanel.css';
 import { socket } from '../server/socket';
+import backIcon from '../src/assets/back.png'; // ✅ импорт иконки
 
 interface PlayerPanelProps {
     players: Player[];
@@ -16,17 +17,15 @@ const PlayerPanel: React.FC<PlayerPanelProps> = ({ players, currentPlayer }) => 
         if (confirmed) {
             const roomName = window.location.pathname.split('/').pop();
             const playerId = localStorage.getItem('playerId');
-            console.log('exit')
+            console.log('exit');
             socket.emit('leave_room', { roomName, playerId });
         }
     };
 
-
-
     return (
         <div className="player-panel-main">
             <div className="back" onClick={handleExit}>
-                <img src="../src/assets/back.png" className="back_icon" />
+                <img src={backIcon} className="back_icon" alt="Назад" /> {/* ✅ корректно подключено */}
             </div>
             <div className="player-panel">
                 {players.filter(p => p?.id && p?.name).map(player => (
@@ -43,6 +42,5 @@ const PlayerPanel: React.FC<PlayerPanelProps> = ({ players, currentPlayer }) => 
         </div>
     );
 };
-
 
 export default PlayerPanel;
