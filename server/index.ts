@@ -14,10 +14,10 @@ const app = express();
 const server = createServer(app);
 
 // Serve client static files from Vite build
-app.use(express.static(path.join(__dirname, '../client/dist')));
+app.use(express.static(path.join(__dirname, '../dist')));
 
 app.get('*', (_req, res) => {
-    res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+    res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
 
 const io = new Server(server, {
