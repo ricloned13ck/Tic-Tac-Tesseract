@@ -11,6 +11,14 @@ const figures = import.meta.glob('../src/assets/figures/*.{png,jpg,jpeg,gif}', {
     import: 'default',
 }) as Record<string, string>;
 
+const exampleImages = import.meta.glob('../src/assets/*_win.png', {
+    eager: true,
+    import: 'default',
+}) as Record<string, string>;
+
+const exampleImageList = Object.values(exampleImages); // ✅ массив ссылок
+
+
 const convertImageToBase64 = (url: string): Promise<string> => {
     return new Promise((resolve, reject) => {
         const img = new Image();
@@ -289,10 +297,10 @@ const Menu: React.FC = () => {
             <div style={{ width: '25%', background: '#f4f4f4', padding: '20px', borderRadius: '12px' }}>
                 <h3>Примеры выигрышных позиций</h3>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                    {exampleImages.map((img, i) => (
+                    {exampleImageList.map((imgSrc, i) => (
                         <img
                             key={i}
-                            src={`/src/assets/${img}`}
+                            src={imgSrc}
                             alt={`win example ${i + 1}`}
                             onClick={() => setSelectedImageIndex(i)}
                             style={{
@@ -306,6 +314,7 @@ const Menu: React.FC = () => {
                             }}
                         />
                     ))}
+
                 </div>
             </div>
 
@@ -351,16 +360,17 @@ const Menu: React.FC = () => {
                             ×
                         </button>
                         <img
-                            src={`../src/examples/${exampleImages[selectedImageIndex]}`}
+                            src={exampleImageList[selectedImageIndex]}
                             alt="enlarged"
-                            style={{ maxWidth: '80vw', maxHeight: '80vh' }}
+                            style={{maxWidth: '80vw', maxHeight: '80vh'}}
                         />
-                        <div style={{ marginTop: '10px', textAlign: 'center' }}>
+                        <div style={{marginTop: '10px', textAlign: 'center'}}>
                             {selectedImageIndex > 0 && (
                                 <button onClick={() => setSelectedImageIndex(selectedImageIndex - 1)}>←</button>
                             )}
                             {selectedImageIndex < exampleImages.length - 1 && (
-                                <button onClick={() => setSelectedImageIndex(selectedImageIndex + 1)} style={{ marginLeft: '10px' }}>→</button>
+                                <button onClick={() => setSelectedImageIndex(selectedImageIndex + 1)}
+                                        style={{marginLeft: '10px'}}>→</button>
                             )}
                         </div>
                     </div>
