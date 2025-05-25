@@ -2,7 +2,7 @@ import React from 'react';
 import '../src/styles/MoveList.css';
 
 interface MoveListProps {
-    moves: string[];
+    moves: string[][];
 }
 
 const MoveList: React.FC<MoveListProps> = ({ moves }) => {

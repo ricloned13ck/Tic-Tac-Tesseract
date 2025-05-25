@@ -44,6 +44,7 @@ const Menu: React.FC = () => {
     const [room, setRoom] = useState('');
     const [passwordInput, setPasswordInput] = useState('');
     const [selectedFigure, setSelectedFigure] = useState<{ src: string; base64: string } | null>(null);
+    // @ts-ignore
     const [avatar, setAvatar] = useState<File | null>(null);
     const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
     const [availableRooms, setAvailableRooms] = useState<Room[]>([]);
@@ -108,7 +109,7 @@ const Menu: React.FC = () => {
         }
 
         const player: Player = {
-            id: localStorage.getItem('playerId'),
+            id: localStorage.getItem('playerId') || '',
             name: nickname,
             symbol: selectedFigure?.base64 || getRandomFigure(),
             avatar: avatarPreview || defaultAvatar,

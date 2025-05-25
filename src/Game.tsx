@@ -14,11 +14,12 @@ const Game: React.FC = () => {
     const [players, setPlayers] = useState<Player[]>(location.state?.players || []);
     const playersRef = useRef<Player[]>([]);
 
+    // @ts-ignore
     const [winnerId, setWinnerId] = useState<string | null>(null);
     const [winningCells, setWinningCells] = useState<string[]>([]);
 
 
-    let freshSet;
+    let freshSet: ((prevState: Set<string>) => Set<string>) | Set<unknown>;
 
     const [board, setBoard] = useState<string[][][]>(Array(9).fill(null).map(() =>
         Array(3).fill(null).map(() => Array(3).fill(''))
@@ -81,6 +82,7 @@ const Game: React.FC = () => {
 
             freshSet = new Set(state.closedCells || []);
 
+            // @ts-ignore
             setClosedCells(freshSet);
 
             setBoard(state.board);
@@ -132,6 +134,7 @@ const Game: React.FC = () => {
                 setMoves(prev => [...prev, [thisPlayer.symbol, posLabel]]);
             }
 
+            // @ts-ignore
             const ans = checking_winning_position(player, field, x, y, freshSet);
             const newWins = ans.map(cell => ({ playerId: player, position: [cell] }));
 
@@ -160,7 +163,7 @@ const Game: React.FC = () => {
 
 
         socket.on('rooms_list', (roomList) => {
-            const room = roomList.find((r) => r.name === roomName);
+            const room = roomList.find((r: { name: string | undefined; }) => r.name === roomName);
             if (room && Array.isArray(room.players)) {
                 setPlayers(room.players);
                 playersRef.current = room.players;
@@ -332,8 +335,8 @@ const Game: React.FC = () => {
         // линии вниз
         for (let j = 0; j < 9; j++) {
             if (boardRef.current[j][x][y] == player_id) {
-                ans[ans.length] = checking_in_lines_without_diags(exclusions[field], j, x, y, player_id);
-                ans[ans.length] = checking_in_lines_with_diags(exclusions_diags[field], j, x, y, player_id);
+                ans[ans.length] = checking_in_lines_without_diags(exclusions[field], j, x, y);
+                ans[ans.length] = checking_in_lines_with_diags(exclusions_diags[field], j, x, y);
             }
         }
 
@@ -349,6 +352,7 @@ const Game: React.FC = () => {
         return [...new Set(array)];
     }
 
+    // @ts-ignore
     const checking_podpole = (ways: number[], field: number, i: number): string => {
         let way = ways;
         let win;
@@ -358,13 +362,16 @@ const Game: React.FC = () => {
             } else {
                 win = way.find(element => element !== i);
             }
+            // @ts-ignore
             if (boardRef.current[field][win % 3][Math.floor(win / 3)] == '')
-                return (columnLabels[(field % 3) * 3 + win % 3] + (Math.floor(field / 3) * 3 + Math.floor(win / 3) + 1).toString())
+                { // @ts-ignore
+                    return (columnLabels[(field % 3) * 3 + win % 3] + (Math.floor(field / 3) * 3 + Math.floor(win / 3) + 1).toString())
+                }
             else return '';
         }
     }
 
-    const checking_in_lines_without_diags = (ways: number[], field: number, x: number, y: number, player_id: string): string => {
+    const checking_in_lines_without_diags = (ways: number[], field: number, x: number, y: number): string => {
         let way = ways;
         let win;
         let a = way.indexOf(field);
@@ -381,7 +388,7 @@ const Game: React.FC = () => {
         else return '';
     };
 
-    const checking_in_lines_with_diags = (ways: number[], field: number, x: number, y: number, player_id: string): string => {
+    const checking_in_lines_with_diags = (ways: number[], field: number, x: number, y: number): string => {
         let way = ways;
         let win;
         if (way.length == 4) {
@@ -390,8 +397,11 @@ const Game: React.FC = () => {
             win = way.find(element => element !== field);
         } else return ''
 
+        // @ts-ignore
         if (boardRef.current[win][x][y] == '')
-            return (columnLabels[(win % 3) * 3 + x] + (Math.floor(win / 3) * 3 + y + 1).toString())
+            { // @ts-ignore
+                return (columnLabels[(win % 3) * 3 + x] + (Math.floor(win / 3) * 3 + y + 1).toString())
+            }
         else return '';
     };
 
@@ -407,8 +417,6 @@ const Game: React.FC = () => {
         }
         return flatBoard;
     };
-
-
     return (
         <div className="app">
             <PlayerPanel players={players} currentPlayer={currentPlayer}/>

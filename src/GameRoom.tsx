@@ -34,7 +34,7 @@ const GameRoom: React.FC = () => {
             setRoom(room);
         });
 
-        socket.on('game_started', ({ players, currentPlayer }) => {
+        socket.on('game_started', ({ players}) => {
             navigate(`/game/${roomName}`, { state: { players } });
         });
 
