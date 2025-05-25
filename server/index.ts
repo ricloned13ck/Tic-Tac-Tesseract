@@ -4,11 +4,14 @@ import { Server } from 'socket.io';
 import cors from 'cors';
 import path from 'path';
 import { Player, Move, Room } from '../src/types';
+import {fileURLToPath} from "node:url";
 
 
 const app = express();
 const server = createServer(app);
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 // Serve client static files from Vite build
 app.use(express.static(path.join(__dirname, '../dist')));
 

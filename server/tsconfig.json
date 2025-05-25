@@ -2,7 +2,7 @@
   "compilerOptions": {
     "outDir": "./server/dist",
     "rootDir": "./server",
-    "module": "commonjs",
+    "module": "ES2020",
     "target": "ES2020",
     "esModuleInterop": true,
     "moduleResolution": "node",
@@ -11,5 +11,5 @@
     "skipLibCheck": true,
     "strict": false
   },
-  "include": ["server/**/*.ts"]
+  "include": ["**/*.ts"]
 }
