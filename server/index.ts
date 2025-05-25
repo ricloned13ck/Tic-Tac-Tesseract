@@ -3,13 +3,8 @@ import { createServer } from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
 import path from 'path';
-import { fileURLToPath } from 'url';
-// @ts-ignore
 import { Player, Move, Room } from '../src/types';
 
-// @ts-ignore
-// const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const app = express();
 const server = createServer(app);
