@@ -27,21 +27,24 @@ const io = new Server(server, {
     }
 });
 
-const session = require("express-session")({
+import session from 'express-session';
+import sharedsession from 'express-socket.io-session';
+
+const sessionMiddleware = session({
     secret: "my-secret",
     resave: true,
     saveUninitialized: true
 });
 
-const sharedsession = require("express-socket.io-session");
 
 app.use(cors({
     origin: '*',
     credentials: true
 }));
 
-app.use(session);
-io.use(sharedsession(session));
+app.use(sessionMiddleware);
+io.use(sharedsession(sessionMiddleware));
+
 
 const rooms: Record<string, Room> = {};
 
