@@ -1,0 +1,35 @@
+.move-list {
+    width: 250px;
+    text-align: left;
+    padding-right: 3%;
+    padding-left: 10px;
+}
+
+.move-list h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.move-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.move-list li {
+    margin-bottom: 5px;
+    font-size: 18px;
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+}
+
+.move_symbol{
+    width: 20px;
+    height: 20px;
+    padding-right: 5px;
+}
+
+.moving{
+    margin: 0 !important;
+    font-weight: normal;
+}

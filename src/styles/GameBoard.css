@@ -1,0 +1,117 @@
+.game-board {
+    display: grid;
+    grid-template-columns: 50px 482px;
+    grid-template-rows: 50px 482px;
+}
+
+.field-labels-top {
+    display: flex;
+    justify-content: space-around;
+    width: 450px;
+    margin-left: 30px;
+    font-weight: bold;
+}
+
+.field-labels-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-weight: bold;
+    color: black;
+}
+
+.board-content {
+    display: flex;
+}
+
+.fields {
+    display: grid;
+    grid-template-columns: repeat(3, 165px);
+    grid-template-rows: repeat(3, 165px);
+}
+
+.field {
+    border: 1px solid #000;
+    width: 150px;
+    height: 150px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.row {
+    width: 50px;
+
+}
+
+.cell {
+    width: 48px;
+    height: 48px;
+    border: 1px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.cell:hover:not(.center-closed) {
+    background-color: #e0e0e0;
+}
+
+.cell.closed .cell_symbol {
+    cursor: not-allowed;
+    visibility: visible;
+}
+
+.cell_symbol {
+    width: 20px;
+    height: 20px;
+    visibility: hidden;
+}
+
+.center-closed {
+    background-color: black;
+}
+
+
+.alph {
+    display: grid;
+    grid-template-columns: repeat(2, 50px 50px 50px 15px) 50px 50px 50px;
+    align-content: center;
+}
+
+.numbers {
+    display: grid;
+    grid-template-rows: repeat(2, 50px 50px 50px 15px) 50px 50px 50px;
+    align-items: center;
+}
+
+.cell.win {
+    background-color: #90ee90 !important;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+
+img {
+    background: transparent;
+}
+
+.centered-flex {
+    display: flex;
+    align-items: center;
+    height: 34px;
+}
+
