@@ -18,6 +18,34 @@ const exampleImages = import.meta.glob('../src/assets/*_win.png', {
 
 const exampleImageList = Object.values(exampleImages); // ✅ массив ссылок
 
+const compressImage = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+            img.src = e.target?.result as string;
+        };
+
+        img.onload = () => {
+            const canvas = document.createElement('canvas');
+            const MAX_WIDTH = 200;
+            const scaleSize = MAX_WIDTH / img.width;
+            canvas.width = MAX_WIDTH;
+            canvas.height = img.height * scaleSize;
+
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return reject('No canvas context');
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            const compressed = canvas.toDataURL('image/jpeg', 0.5); // 0.7 = 70% качества
+            resolve(compressed);
+        };
+
+        reader.readAsDataURL(file);
+        img.onerror = reject;
+    });
+};
+
 
 const convertImageToBase64 = (url: string): Promise<string> => {
     return new Promise((resolve, reject) => {
@@ -103,13 +131,12 @@ const Menu: React.FC = () => {
         const file = e.target.files?.[0];
         if (file) {
             setAvatar(file);
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setAvatarPreview(reader.result as string);
-            };
-            reader.readAsDataURL(file);
+            compressImage(file).then((compressed) => {
+                setAvatarPreview(compressed);
+            });
         }
     };
+
 
     const handleStart = () => {
         if (!nickname || !room) {
